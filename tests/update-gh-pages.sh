@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+if [ "x$TRAVIS_PULL_REQUEST" == "xfalse" ]; then
     echo -e "Starting to update gh-pages\n"
 
     #copy data we're interested in to other place
-    cp -R tests/report $HOME/tests
+    cp -R report $HOME/tests
 
     #go to home and setup git
     cd $HOME
@@ -16,7 +16,8 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
     #go into diractory and copy data we're interested in to that directory
     cd gh-pages
-    cp -Rf $HOME/tests/* .
+    cp -Rf $HOME/tests/* ./tests/
+    mv -f ./tests/junit-noframes.html ./tests/index.html
 
     #add, commit and push files
     git add -f .
